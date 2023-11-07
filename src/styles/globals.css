@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-lights{
+	background-image: url('https://imgur.com/vOgIizg.png');
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 100%;
+    background-position-y: 0px;
+}
+
+body::-webkit-scrollbar {
+	width: 7px;
+	background-color: transparent;
+}
+
+body::-webkit-scrollbar-track {
+	background-color: #000000;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: #252525;
+	border-radius: 3px;
+}
+
+.sidebar-wery::-webkit-scrollbar {
+	width: 7px;
+	background-color: transparent;
+}
+
+.sidebar-wery::-webkit-scrollbar-track {
+	background-color: #252525;
+}
+
+.sidebar-wery::-webkit-scrollbar-thumb {
+	background-color: #232323;
+	border-radius: 3px;
+}
