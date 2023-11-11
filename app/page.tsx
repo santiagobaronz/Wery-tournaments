@@ -3,16 +3,19 @@
 import Authentication from "@/src/components/Auth/Authentication";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function Home() {
+export default function page() {
 
 	const { data: session, status } = useSession();
 	const router = useRouter();
 
-	if(status == 'authenticated'){
-		router.push('/dashboard')
-	}
-
+	useEffect(() => {
+		if(status == 'authenticated'){
+			router.push('/dashboard')
+		}
+	}, [status])
+	
 	return (
 		<main>
 			<div className="container justify-center items-center min-h-screen p-20 relative">

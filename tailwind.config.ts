@@ -10,10 +10,10 @@ const config: Config = {
 
 	theme: {
 		screens: {
-			sm: '400px',
-			md: '650px',
-			lg: '1000px',
-			xl: '1400px',
+			sm: '600px',
+			md: '750px',
+			lg: '1200px',
+			xl: '1600px',
 		},
 		container: {
 			center: true,

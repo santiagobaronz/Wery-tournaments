@@ -1,8 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-
-import { signIn, signOut, useSession } from "next-auth/react";
+import { getDate } from '@/src/utils/getDate';
+import Slider from './components/Slider';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import Resume from './components/Resume';
+import Teams from './components/Teams';
+import Tournaments from './components/Tournaments';
 
 export default function page() {
 
@@ -30,19 +34,35 @@ export default function page() {
 	}, [status])
 
 	return (
-		<div>
-			<h1 className='text-white text-xl'>Hola, {name}</h1>
-			
-			<div className='flex gap-x-10 mt-8'>
-				<div className='w-4/6 bg-bg-highlighted'>
+		<div className='container'>
+			<div className='flex justify-between text-white'>
+				<h1 className='text-xl'>Hola, {name}</h1>
+				<p className='text-lg'>{getDate(new Date(), 'DDMY')}</p>
+			</div>
 
+			<div className='flex gap-x-10 mt-8'>
+				<div className='w-4/6 h-[375px] shadow-sm'>
+					<Slider></Slider>
 				</div>
-				<div className='w-2/6 bg-bg-highlighted h-9'>
-					
+				<div className='w-2/6 h-[375px] bg-bg-highlighted rounded-2xl shadow-sm'>
+					<Resume></Resume>
 				</div>
 			</div>
 
-
+			<div className='flex gap-x-10 mt-8'>
+				<div className='w-4/6 h-[410px] bg-bg-highlighted rounded-2xl shadow-sm'>
+					<div className='p-10'>
+						<h3 className='text-white font-semibold text-lg'>Últimos equipos registrados en Wery</h3>
+						<Teams columns={2} maxTeams={6} id_evento={0} type={'complete'}/>
+					</div>
+				</div>
+				<div className='w-2/6 h-[410px] bg-bg-highlighted rounded-2xl shadow-sm'>
+					<div className='p-10'>
+						<h3 className='text-white font-semibold text-lg'>Próximos torneos de programación</h3>
+						<Tournaments></Tournaments>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

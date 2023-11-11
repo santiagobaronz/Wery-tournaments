@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BsArchiveFill, BsArrowBarLeft, BsDpadFill, BsFillChatLeftDotsFill, BsLightningChargeFill, BsPaletteFill, BsPeopleFill, BsPersonFill, BsStarFill } from "react-icons/bs";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { BsArrowBarLeft, BsFillChatLeftDotsFill, BsLightningChargeFill, BsPaletteFill, BsPeopleFill, BsPersonFill, BsStarFill } from "react-icons/bs";
+import { signOut, useSession } from "next-auth/react";
+import { IoMdSettings } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import Notifications from "./components/Notifications";
 
@@ -12,11 +13,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 	const { data: session, status } = useSession();
 	const [name, setName] = useState("")
 	const [notificaciones, setNotificaciones] = useState();
-	const router = useRouter();
-
-	const goToProfile = () => {
-		router.push('/profile')
-	}
 
 	useEffect(() => {
 		const obtenerNotificaciones = async () => {
@@ -73,16 +69,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 						<hr className="mb-5 text-white opacity-5 w-5/6 m-auto" />
 						<ul className="space-y-2 font-medium">
 							<li>
-								<a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+								<Link href={'/dashboard'} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 									<BsPaletteFill></BsPaletteFill>
 									<span className="ml-3">Dashboard</span>
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+								<Link href={'/dashboard/torneos'} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 									<BsStarFill></BsStarFill>
 									<span className="flex-1 ml-3 whitespace-nowrap">Torneos</span>
-								</a>
+								</Link>
 							</li>
 							<li>
 								<a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -105,6 +101,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 									<span className="flex-1 ml-3 whitespace-nowrap">Mi perfil</span>
 								</a>
 							</li>
+							{session?.user.rol === "ADM" && (
+								<li>
+									<a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+										<IoMdSettings></IoMdSettings>
+										<span className="flex-1 ml-3 whitespace-nowrap">Administración</span>
+									</a>
+								</li>
+							)}
+
 						</ul>
 
 						<hr className="mt-5 text-white opacity-5 w-5/6 m-auto" />
@@ -115,7 +120,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 					</div>
 
 					<div className="px-1">
-						<button onClick={goToProfile} className="flex w-full text-left items-center space-x-4 mt-4 p-3 bg-[#383E4B] rounded-md">
+						<button className="flex w-full text-left items-center space-x-4 mt-4 p-3 bg-[#383E4B] rounded-md">
 							<div className="w-10 h-10 rounded-full flex justify-center items-center bg-[#BFE9FF]">
 								<p className="text-[#2e5a83] font-bold text-lg">
 									<BsPersonFill></BsPersonFill>
@@ -135,7 +140,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 				</div>
 			</aside>
 
-			<div className="p-10 md:ml-64">
+			<div className="p-12 md:ml-64">
 				{children}
 			</div>
 		</div>

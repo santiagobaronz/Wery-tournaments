@@ -17,12 +17,12 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-	background-color: #000000;
+	background-color: #0000003a;
 }
 
 body::-webkit-scrollbar-thumb {
 	background-color: #252525;
-	border-radius: 3px;
+	border-radius: 0px;
 }
 
 .sidebar-wery::-webkit-scrollbar {

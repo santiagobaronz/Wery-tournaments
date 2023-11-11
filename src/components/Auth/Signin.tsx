@@ -17,9 +17,7 @@ export default function Signin() {
 			clave: clave,
 			redirect: false,
 		});
-
-		console.log(responseNextAuth)
-
+		
 		if (responseNextAuth?.error) {
 			setError('Credenciales incorrectas');
 			return;

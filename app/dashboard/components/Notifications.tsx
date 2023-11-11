@@ -1,22 +1,22 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useSession } from "next-auth/react";
-import { Notificacion } from '@/src/types/Notification';
+import { NotificationInterface } from '@/src/types/NotificationInterface';
 import Link from 'next/link';
 
 export default function Notifications() {
 
-	const [notificaciones, setNotificaciones] = useState<Notificacion[]>([]);
+	const [notification, setNotification] = useState<NotificationInterface[]>([]);
 	const { data: session, status } = useSession();
 
 	useEffect(() => {
-		const obtenerNotificaciones = async () => {
+		const getNotification = async () => {
 			try {
 				const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notificaciones/${session?.user.usuario_id}?prioridad=alta`);
 				if (response.ok) {
 					const data = await response.json();
 					const userNotification = data.reverse()
-					setNotificaciones(userNotification);
+					setNotification(userNotification);
 				} else {
 					console.error('Error al obtener las notificaciones.');
 				}
@@ -25,10 +25,10 @@ export default function Notifications() {
 			}
 		};
 
-		obtenerNotificaciones();
+		getNotification();
 	}, [status]);
 
-	const eliminarNotificacion = async (id_notificacion: number, indexArray: number) => {
+	const deleteNotification = async (id_notificacion: number, indexArray: number) => {
 		fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notificaciones/${id_notificacion}`, {
 			method: 'DELETE',
 			headers: {
@@ -42,8 +42,8 @@ export default function Notifications() {
 				return response.json();
 			})
 			.then(data => {
-				const nuevoArray = notificaciones.filter((_, index) => index !== indexArray);
-				setNotificaciones(nuevoArray);
+				const newArray = notification.filter((_, index) => index !== indexArray);
+				setNotification(newArray);
 			})
 			.catch(error => {
 				console.error('Hubo un problema al conectar con el servidor:', error);
@@ -53,16 +53,16 @@ export default function Notifications() {
 
 	return (
 		<div>
-			{notificaciones.length > 0 && <h3 className="mt-5 text-white">Mis notificaciones</h3>}
+			{notification.length > 0 && <h3 className="mt-5 text-white">Mis notificaciones</h3>}
 			<ul>
-				{notificaciones.slice(0, 2).map((notificacion, index) => (
+				{notification.slice(0, 2).map((notificacion, index) => (
 					<li key={notificacion.id}>
 						<div id="dropdown-cta" className="p-4 mt-3 rounded-lg bg-[#383E4B]" role="alert">
 							<div className="flex items-center mb-3">
 								<h3 className="text-white opacity-90 bg-[#2563EB] px-2 py-1 rounded-md text-[14px]">{notificacion.titulo}</h3>
 								<button
 									type="button"
-									onClick={() => eliminarNotificacion(notificacion.id, index)}
+									onClick={() => deleteNotification(notificacion.id, index)}
 									className="ml-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center text-[#3B82F6] rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 h-6 w-6 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
 									data-dismiss-target="#dropdown-cta"
 									aria-label="Close"

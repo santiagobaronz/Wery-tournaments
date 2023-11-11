@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import { Poppins, Nunito_Sans } from 'next/font/google'
 import './../src/styles/globals.css'
-import Header from '@/src/components/Navigation/Header'
 import Authentication from '@/src/components/Auth/Authentication'
 import SessionAuthProvider from '@/src/context/SessionAuthProvider'
-import ButtonAuth from '@/src/components/ButtonAuth'
 
 const pageFont = Nunito_Sans({
 	weight: ['200', '300', '400', '500', '600', '700', '800', '900'],

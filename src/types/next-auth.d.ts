@@ -9,6 +9,10 @@ declare module "next-auth" {
 			carrera: string;
 			materia_id: string;
 			token: string;
+			id_equipo: number;
+			nombre_equipo: string;
+			categoria_equipo: string;
+			rol: string;
 		};
 	}
 }
