@@ -4,7 +4,7 @@ import { getDate } from '@/src/utils/getDate';
 import React, { useEffect, useState } from 'react';
 import Details from './components/Details';
 
-export default function page({ params }: any) {
+export default function page({ params }: { params: { id: number } }) {
 
 	const event_id = params.id;
 
@@ -28,6 +28,8 @@ export default function page({ params }: any) {
 		getEvents();
 	}, [event_id]);
 
+	console.log(event)
+
 	return (
 		<div className='container'>
 			<div className='flex justify-between text-white mb-10'>
@@ -43,7 +45,7 @@ export default function page({ params }: any) {
 					<h2 className='text-white text-2xl mt-10 font-semibold'>{event.nombre_evento}</h2>
 					<p className='text-text-color text-lg mt-3'>{event.descripcion_evento}</p>
 
-					<Details id_evento={event.id}></Details>
+					<Details id_evento={event_id}></Details>
 				</div>
 			) : (
 				<div className='w-full h-96 bg-[#2A2D30] rounded-2xl flex justify-center items-center'>

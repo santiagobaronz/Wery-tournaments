@@ -50,13 +50,12 @@ export default function page() {
 			</div>
 
 			<div className='flex gap-x-10 mt-8'>
-				<div className='w-4/6 h-[410px] bg-bg-highlighted rounded-2xl shadow-sm'>
+				<div className='w-4/6 h-min bg-bg-highlighted rounded-2xl shadow-sm'>
 					<div className='p-10'>
-						<h3 className='text-white font-semibold text-lg'>Últimos equipos registrados en Wery</h3>
-						<Teams columns={2} maxTeams={6} id_evento={0} type={'complete'}/>
+						<Teams columns={2} maxTeams={6} id_evento={0} type={'complete'} label={'Últimos equipos registrados en Wery'}/>
 					</div>
 				</div>
-				<div className='w-2/6 h-[410px] bg-bg-highlighted rounded-2xl shadow-sm'>
+				<div className='w-2/6 h-min bg-bg-highlighted rounded-2xl shadow-sm'>
 					<div className='p-10'>
 						<h3 className='text-white font-semibold text-lg'>Próximos torneos de programación</h3>
 						<Tournaments></Tournaments>

@@ -13,6 +13,8 @@ declare module "next-auth" {
 			nombre_equipo: string;
 			categoria_equipo: string;
 			rol: string;
+			categoria_materia: string;
+			categoria_materia_id: number;
 		};
 	}
 }

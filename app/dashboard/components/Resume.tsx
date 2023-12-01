@@ -10,7 +10,7 @@ export default function Resume() {
 
 	const { data: session, status } = useSession();
 	const [eventsTeams, setEventsTeams] = useState<EventsTeams[]>([]);
-	const [teamMembers, setTeamMembers] = useState<TeamMembers[]>([]);
+	const [teamMembers, setTeamMembers] = useState();
 
 	useEffect(() => {
 		const getEvents = async () => {
@@ -29,10 +29,11 @@ export default function Resume() {
 
 		const getMembers = async () => {
 			try {
-				const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/equipos/integrantes/${session?.user.id_equipo}`);
+				const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/integrantes/contar/${session?.user.id_equipo}`);
 				if (response.ok) {
 					const data = await response.json();
-					setTeamMembers(data);
+					const members = data[0].numero_integrantes;
+					setTeamMembers(members);
 				} else {
 					console.error('Error al obtener los miembros del equipo.');
 				}
@@ -73,7 +74,7 @@ export default function Resume() {
 								</div>
 								<p className='text-white'>Aún no estas en un equipo</p>
 							</div>
-							<Link href={'#'} className='bg-blue hover:bg-blue/70 transition-all w-full block py-3 text-center rounded-md text-white'>Encontrar un equipo</Link>
+							<Link href={'/dashboard/equipos'} className='bg-blue hover:bg-blue/70 transition-all w-full block py-3 text-center rounded-md text-white'>Encontrar un equipo</Link>
 						</div>
 					</div>
 
@@ -90,12 +91,12 @@ export default function Resume() {
 								<p className='text-text-color font-light'>Eventos con registro</p>
 							</div>
 							<div className='border border-[#383E4B] rounded-xl p-5 w-1/2 bg-[#2E3133]'>
-								<p className='text-xl text-white font-bold'>{teamMembers.length}</p>
+								<p className='text-xl text-white font-bold'>{teamMembers}</p>
 								<p className='text-text-color font-light'>Integrantes</p>
 							</div>
 						</div>
 
-						<Link href={'#'} className='bg-blue hover:bg-blue/70 transition-all mt-5 w-full block py-3 text-center rounded-md text-white'> Ver torneos</Link>
+						<Link href={'/dashboard/torneos'} className='bg-blue hover:bg-blue/70 transition-all mt-5 w-full block py-3 text-center rounded-md text-white'> Ver torneos</Link>
 
 					</div>
 				)}
